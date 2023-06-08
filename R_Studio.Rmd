@@ -1,0 +1,174 @@
+---
+title: "Primeros pasos en R"
+author: "inges"
+date: "2023-03-29"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+## Definición de variables numéricas
+
+
+para definir variables numéricas basta con darle un nombre a la variable y poner la flecha de asignación seguida del valor numérico que queremos asignar. en la ventana superior derecha aparecerá la variable con su valor
+
+```{r}
+ca <- 16
+ca
+
+```
+### vectores
+los vectores son otra estructura de datos de R que a diferencia de las variables que vimos antes, alojan una colección de valores. Desde el punto de vista de objetos una variable simple es un vector que solo tiene un elemento.
+
+```{r}
+ventas <- c(30,35,23,45,60,69,12,34,36,89,74,25)
+plot(ventas)
+```
+
+Quisiera saber cual es el nivel promedio de ventas anuales y el desvío estandar
+
+```{r}
+mean(ventas)
+sd(ventas)
+```
+
+## Datos Simulados
+
+Queremos generar unos datos para meter en un simulador que representen a nuestra empresa. Vamos a generar 500 datos con el mismo promedio y desvío estandar
+
+```{r}
+ventas_simuladas<-rnorm(500,44.33333,23.49597)
+plot(ventas_simuladas)
+```
+
+
+Qué probabilidad tengo de que las ventas sean menores a 30
+
+```{r}
+pnorm(30,44.33,23.49)
+```
+## Variables de tipo lista
+Las variables de tipo lista son vecotres pero se generan con el comando "scan()"
+
+Como scan es autointercativo no podemos ponerlo dentro de un documento rmarkdown. Solo podemos ejecutar en la ventana de consola el comando
+
+    compras <- scan()
+
+## Comando length y seq
+Length:Se utiliza para determinar la longitud de datos con la que cuenta una variable definida anteriormente.
+Seq: Se utiliza para generar una secuencia de números con un valor incicial, un valor final y el rango entre valores que se van dando. Mediante estas funciones se puede generar una gráfica de un cierto valor sin necesidad de contar dos datos de la sig. manera.
+
+```{r}
+plot(seq(1,length(ventas_simuladas),1),ventas_simuladas)
+```
+## Métodos alternativos para generar secuencias
+A los programadores les encanta utilizar los métodos de programación que llevan comandos "for", "until", "while"; pero estos métodos son caros computacionalmente hablando.
+
+```{r}
+impuestos <- numeric(24)
+impuestos[1] <- 0
+
+for (i in 2:24) {
+  impuestos[i] <- impuestos[i-1] + 2*i
+}
+
+impuestos
+```
+
+De la lista ventas_simuladas ¿Cuántos valores son superiores a 40?
+
+```{r}
+indice <- which(ventas_simuladas > 40)
+indice
+ventas_simuladas[indice]
+
+```
+
+```{r}
+length(indice)
+sum(ventas_simuladas[indice])
+```
+
+```{r}
+fibonacci_recursivo <- function(n) {
+  if (n <= 0) {
+    return(NULL)
+  } else if (n == 1) {
+    return(0)
+  } else if (n == 2) {
+    return(1)
+  } else {
+    return(fibonacci_recursivo(n - 1) + fibonacci_recursivo(n - 2))
+  }
+}
+
+# Imprimir los primeros 10 números de la serie de Fibonacci
+for (i in 1:10) {
+  resultado <- fibonacci_recursivo(i)
+  cat(resultado, " ")
+}
+```
+
+---------------------------------
+
+Resumen Capítulo 5
+
+Modelos de Negocios Circulares: Un Enfoque de Red para Promover la Circularidad y la Co-Creación de Valor desde la Perspectiva del Productor.
+
+
+El texto proporcionado habla sobre la importancia de la economía circular desde una perspectiva sistémica y la necesidad de un cambio sistémico para lograr un enfoque hacia la sostenibilidad. Se menciona que los ecosistemas naturales son inherentemente circulares y que las empresas están reconociendo cada vez más la importancia de utilizar mejor los recursos existentes y emular los sistemas naturales. Se destaca la importancia de los modelos de negocio en la economía circular, ya que deben crear valor y capturar parte de ese valor. El texto también menciona la importancia de la colaboración y la co-creación de valor en la economía circular, y propone un marco que combina los modelos de negocio circulares y los modelos de negocio abiertos.
+
+En resumen, el texto resalta que la economía circular requiere un cambio sistémico en la lógica empresarial, promoviendo la colaboración y la co-creación de valor a lo largo de toda la cadena de valor. Los modelos de negocio circulares son fundamentales para impulsar la implementación de la economía circular a nivel empresarial, y se enfatiza la importancia de la colaboración y las asociaciones estratégicas en este contexto.
+
+Según Lewandowski (2016), los recursos clave de los Modelos de Negocio (BM, por sus siglas en inglés) se ajustan a los principios de la economía circular en dos aspectos. Por un lado, los productos de entrada pueden ser reemplazados por materiales que provienen de ciclos cerrados sostenibles o que tienen una vida útil más larga. Por otro lado, los recursos pueden ser directamente sustituidos por materiales superiores. Este componente también se refiere a los recursos que permiten la regeneración y restauración del capital natural, por ejemplo, a través del uso de energías renovables o sitios de producción más sostenibles.
+
+La estructura de costos en la versión circular del lienzo refleja los cambios financieros que acompañan la introducción de un BM circular. La propuesta de valor refleja el componente esencial de los BM circulares y describe un producto, un sistema de producto-servicio o un servicio puro. Los productos circulares pueden tener diversas características en cuanto a su circularidad, de manera que los materiales circulan en bucles cerrados. Esto incluye, por ejemplo, el diseño de productos para construcciones robustas, para renovación, mantenimiento, reutilización y reparación, para remanufactura y reensamblaje, así como para intercambio, alquiler y compartición. Por lo tanto, los productos circulares tienen una vida útil extendida y un menor uso de materias primas, energía y emisiones.
+
+Dentro de los BM circulares, las relaciones con los clientes están cambiando mediante una mayor interacción con los clientes y relaciones a largo plazo. En cuanto a los canales, Lewandowski (2016) resume que el mayor cambio radica en la virtualización, lo que significa que tanto las propuestas de valor virtualizadas pueden ser vendidas como que el valor puede ser entregado virtualmente. Además, las propuestas de valor no virtualizadas se venden a través de canales virtuales.
+
+Las corrientes de ingresos incluyen los pagos por productos o servicios circulares y se refieren al valor de los recursos obtenidos de los bucles de materiales. Otras corrientes de ingresos relacionadas con los BM circulares a menudo resultan del cambio en la propuesta de valor, en la cual los clientes pagan por el uso en lugar de la propiedad.
+
+La Innovación Abierta y los BM Abiertos (OBM) Basándose en la literatura de la innovación abierta (Chesbrough, 2003), el concepto de OBM vincula el campo de la investigación de la innovación con la literatura de los BM (Weiblen, 2016). El OBM se ha convertido en un término establecido en la literatura desde el libro de Chesbrough (2006). El término "abierto" se refiere generalmente a los límites de una empresa y su colaboración con otras empresas, comunidades o clientes a través de esos límites. Sin embargo, no hay una definición unificada del concepto en las diversas corrientes de literatura. 
+
+La conceptualización desarrollada de los Modelos de Negocios Basados en la Oferta (OBMs, por sus siglas en inglés) por Rojas y Azevedo (2014) consta de 14 elementos dentro de 6 componentes principales de un OBM. Los autores proponen que los componentes de un OBM pueden asignarse según dos aspectos. Por un lado, se puede atribuir un carácter estructural a los clientes, la creación de valor en la red, los actores de la red y la captura de valor de la red, lo cual define los elementos relevantes y su interrelación. Por otro lado, los aspectos conductuales del intercambio de valor en la red y la gobernanza de la red determinan cómo interactúan estos factores.
+
+Dentro de la creación de valor en la red, el elemento de la propuesta de valor ofrecida es esencial, ya que esta componente es la base para definir las actividades clave y las competencias necesarias para desarrollar el producto o servicio ofrecido por la red. El intercambio de valor en la red representa las transacciones y la combinación efectiva de la información y los recursos entre todos los actores. También muestra cómo crean valor, no solo para el cliente final, sino también para los socios de la red. La captura de valor de la red, como parte del marco propuesto por Rojas y Azevedo (2014), describe cómo se captura la creación de valor. Por lo tanto, la estructura de costos tiene en cuenta todos los gastos asociados con la creación, oferta y distribución de bienes y servicios, al tiempo que genera ingresos. La gobernanza de la red se refiere a los diversos instrumentos utilizados para evaluar el nivel de desempeño de la red y mantener un control estricto sobre la información, los recursos y las capacidades de todos los actores involucrados en la red.
+
+Estudio empírico en la industria del plástico Enfoque de investigación Dada la falta de orientación práctica para desarrollar los CBM basados en el uso del lienzo del modelo de negocio y el énfasis en la co-creación de valor, aplicamos un enfoque cualitativo utilizando la teoría fundamentada (Gioia, Corley y Hamilton, 2013; Glaser y Strauss, 1967). La teoría fundamentada se basa en datos cualitativos y métodos de investigación interpretativa. Ofrece una metodología inductiva para descubrir teorías, lo que permite tanto el desarrollo de una representación teórica de características generales como el anclaje de la representación en datos o observaciones recopilados empíricamente. Por lo tanto, la teoría fundamentada ofrece al investigador una mayor libertad para explorar el campo de investigación y permite la aparición de diferentes enfoques e hipótesis (Amarah y Langston, 2017; Charmaz, 2006). En relación a nuestra pregunta de investigación sobre cómo se puede implementar estratégicamente la economía circular en el modelo de negocio de una empresa, la teoría fundamentada proporciona un enfoque que se centra en la interpretación de los actores corporativos para comprender la economía circular a nivel empresarial. 
+
+Se ha hecho evidente que la industria del plástico necesita pasar de un sistema que produce residuos a un sistema que mantenga el valor y los activos del plástico, pero elimine los impactos negativos mencionados anteriormente. Este sistema circular requiere enfoques radicalmente nuevos para el diseño empresarial y de productos. Aunque existen enfoques iniciales para aplicar estas ideas en la cadena de valor del plástico, la mayoría de los modelos de negocio aún no han adoptado un enfoque sistémico necesario para transformar estos conceptos en negocios sostenibles. En un análisis sobre modelos de negocio que contribuyen a la gestión sostenible del plástico, se encontró que todos los casos analizados abordaban los componentes del modelo de negocio, como la propuesta de valor, los socios clave, las actividades o los recursos. El tercer componente importante de los modelos de negocio sostenibles para la industria del plástico comprende a los clientes, incluidos los segmentos de clientes, las relaciones o los canales. Además, una cuarta parte de los modelos de negocio analizados describían explícitamente casos de modelos de economía circular que buscan eliminar los flujos de residuos y cerrar los ciclos de vida de los recursos, incluyendo mecanismos de devolución, longevidad del producto y el uso de flujos de residuos.
+
+Este enfoque sistémico y los elementos del modelo de negocio desempeñan un papel excepcional en la industria del plástico en comparación con otras industrias, ya que enfrenta dificultades extraordinarias en relación con la economía circular. Especialmente la complejidad de la cadena de valor del plástico y los diferentes actores involucrados subrayan estos desafíos. Por lo tanto, los productores de plástico en particular deben tener en cuenta las interdependencias con otros actores en la cadena de valor dentro de su modelo de negocio al definir el diseño del producto y la aplicación de los materiales. En este contexto, la Estrategia Europea para los Plásticos también enfatiza la importancia de la colaboración en toda la cadena de valor.
+
+El estudio incluyó ocho entrevistas semiestructuradas y actas escritas de nueve reuniones grupales. Las cinco empresas de muestra, incluidos cuatro productores de plástico y una empresa de reciclaje, son parte de un proyecto de investigación conjunto que busca mejorar la economía circular en la industria del plástico. Las empresas seleccionadas se caracterizan por su voluntad de contribuir a la economía circular con un nuevo modelo de negocio y están dispuestas a participar en las entrevistas. Los entrevistados incluyeron empleados con formación técnica y de gestión.
+
+Los resultados del estudio muestran la necesidad de una orientación práctica para implementar un modelo de negocio circular basado en la extensión de un modelo de negocio abierto que permita a las empresas co-crear valor en toda la cadena de valor para cerrar los ciclos de materiales. Se propone un marco conceptual que combina las operacionalizaciones de modelos de negocio circulares y los modelos de negocio abiertos. Este marco considera la creación de valor dentro de toda la cadena de valor y permite la coexistencia del modelo de negocio existente alentando su apertura.
+
+
+
